@@ -10,18 +10,23 @@ let contacts=[
         phnno: "+91 9393939393"
     },
     {
-        name: "Chandermani Arora",
-        email: "chandermani@technovert.com",
+        name: "Praveen Battula",
+        email: "praveen@technovert.com",
         phnno: "+91 9494949494"
+    },
+    {
+        name: "Vijay Yalamanchili",
+        email: "praveen@technovert.com",
+        phnno: "+91 9595959595"
     }
 ]
 let list=document.querySelector("#list");
 let contactList="";
 contacts.forEach((contact)=>{
     contactList += `<div class=list-item>
-    <div>${contact.name}</div>
-    <div>${contact.email}</div>
-    <div>${contact.phnno}</div>
+    <div class="item-name">${contact.name}</div>
+    <div class="item-email">${contact.email}</div>
+    <div class="item-phnno">${contact.phnno}</div>
     </div>`
 });
 contactList="<div class=`list-container`>"+ contactList + "</div>";

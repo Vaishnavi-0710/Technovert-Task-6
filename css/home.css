@@ -50,5 +50,38 @@ body{
     text-decoration: none;
 }
 .body{
-    padding: 30px 0px 0px 55px;
+    padding: 30px 0px 0px 20px;
+    margin: 0;
+}
+.contact-heading{
+    font-family: "Gadugi";
+    color: #323232;
+    font-size: 20px;
+}
+#list{
+    padding: 10px 0px 0px 0px;
+}
+.list-item{
+    display: block;
+    border: 1px solid silver;
+    width:350px;
+    align-items:center ;
+}
+.item-name{
+    font-family: "Gadugi";
+    color: #363636;
+    font-size: 25px;
+    padding:5px 0px 0px 10px;
+}
+.item-email{
+    font-family: "Gadugi";
+    color: #363636;
+    padding:2px 0px 0px 12px;
+    font-size: 16px;
+}
+.item-phnno{
+    font-family: "Gadugi";
+    color: #363636;
+    padding:0px 0px 5px 12px;
+    font-size: 16px;
 }
