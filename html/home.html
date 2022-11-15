@@ -16,7 +16,7 @@
             <div class="navbar-list">
                 <ul class="nav-list">
                     <li class="nav-item"><a><b>HOME</b></a></li>
-                    <li class="nav-item"><a><b>+ADD</b></a></li>
+                    <li class="nav-item" id="add"><a><b>+ADD</b></a></li>
                 </ul>
             </div>
             <div class="icon"><img src="../images/blog-icon.png" alt="icon not found"></div>
@@ -25,6 +25,49 @@
             <div class="contacts">
                 <div class="contacts-heading"><b>CONTACTS</b></div>
                 <div id="list"></div>
+            </div>
+            <div class="add-form">
+                <form id="details">
+                    <div class="item">
+                        <div class="cell"><label for="name">Name</label></div>
+                        <div class="cell"><input type="text" id="name" name="name">
+                            <span id="nameError"></span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="cell"><label for="email">Email</label></div>
+                        <div class="cell"><input type="email" id="email" name="email" >
+                            <span id="emailError"></span>
+                        </div>
+                    </div>
+                    <div class="item section mob-number">
+                        <div class="sub-item phone-number">
+                            <div class="cell"><label for="mobile">Mobile</label></div>
+                            <div class="cell"><input type="text" id="mobile" name="mobile">
+                                <span id="mobileError"></span>
+                            </div>
+                        </div>
+                        <div class="sub-item phone-number">
+                            <div class="cell"><label for="landline">Landline</label></div>
+                            <div class="cell"><input type="text" id="landline" name="landline">
+                                <span id="landlineError"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="cell"><label for="website">Website</label></div>
+                        <div class="cell"><input type="text" id="website" name="website">
+                            <span id="websiteError"></span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="cell"><label for="address">Address</label></div>
+                        <div class="cell"><input type="text" id="address" class="address" name="address">  
+                        </div>
+                        <span id="addressError"></span>
+                    </div>
+                    <div><input type="button" id="button" class="button" value="Add"></div>
+                </form>
             </div>
         </div>
     </body>

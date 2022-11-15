@@ -51,11 +51,14 @@ body{
 }
 .body{
     padding: 30px 0px 0px 20px;
+    display: flex;
     margin: 0;
 }
 .contact-heading{
     font-family: "Gadugi";
     color: #323232;
+    font-weight: bolder;
+    text-shadow: 0px 0px 0.8px;
     font-size: 20px;
 }
 #list{
@@ -84,4 +87,71 @@ body{
     color: #363636;
     padding:0px 0px 5px 12px;
     font-size: 16px;
+}
+form{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0px 0px 0px 10px;
+}
+.section:nth-child(1), .section:nth-child(2){
+    width:50%;
+}
+.item{
+    text-align: left;
+    width: 100%;
+}
+.cell{
+    padding:0px 0px 5px 0px;
+    width:92%;
+}
+.mob-number {
+    display: flex;
+    justify-content: space-between;
+}
+label{
+    font-weight: bold;
+    font-family: "Arial";
+    color: #1B1B1B;
+    font-size: 13px;
+    width:300px;
+}
+input{
+    height: 35px;
+    border: 2px solid #919191;
+    font-size: 15px;
+    width: 100%;
+}
+.address{
+    width:400px;
+    height:70px;
+}
+.add-form{
+    width: 600px;
+    height: 550px;
+    margin: 20px 65px;
+    box-shadow: 0px 0px 25px;
+    display: none;
+}
+.button{
+    height: 40px;
+    width:100px;
+    background-color: #468c00;
+    border-width: 0px;
+    color: white;
+    font-size: 18px;
+    margin: 0px;
+}
+#details{
+    padding:20px 0px 0px 20px;
+}
+.phone-number {
+    width: 50%;
+    margin-right: 30px;
+    flex-direction: column;
+    align-content: flex-start;
+    align-items: stretch;
+}
+span{
+    color:red;
 }
