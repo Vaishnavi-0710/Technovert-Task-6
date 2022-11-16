@@ -27,22 +27,26 @@
                 <div id="list"></div>
             </div>
             <div class="add-form">
-                <form id="details">
+                <form id="formDetails">
                     <div class="item">
-                        <div class="cell"><label for="name">Name</label></div>
+                        <div class="cell"><label for="name" aria-describedby="required-description">Name</label>
+                            <span aria-hidden="true" class="required">*</span>
+                        </div>
                         <div class="cell"><input type="text" id="name" name="name">
                             <span id="nameError"></span>
                         </div>
                     </div>
                     <div class="item">
                         <div class="cell"><label for="email">Email</label></div>
-                        <div class="cell"><input type="email" id="email" name="email" >
+                        <div class="cell"><input type="email" id="email" name="email">
                             <span id="emailError"></span>
                         </div>
                     </div>
                     <div class="item section mob-number">
                         <div class="sub-item phone-number">
-                            <div class="cell"><label for="mobile">Mobile</label></div>
+                            <div class="cell"><label for="mobile" aria-describedby="required-description">Mobile</label>
+                                <span aria-hidden="true" class="required">*</span>
+                            </div>
                             <div class="cell"><input type="text" id="mobile" name="mobile">
                                 <span id="mobileError"></span>
                             </div>
@@ -56,19 +60,40 @@
                     </div>
                     <div class="item">
                         <div class="cell"><label for="website">Website</label></div>
-                        <div class="cell"><input type="text" id="website" name="website">
-                            <span id="websiteError"></span>
-                        </div>
+                        <div class="cell"><input type="text" id="website" name="website"></div>
                     </div>
                     <div class="item">
                         <div class="cell"><label for="address">Address</label></div>
-                        <div class="cell"><input type="text" id="address" class="address" name="address">  
-                        </div>
-                        <span id="addressError"></span>
+                        <div class="cell"><textarea id="address" class="address" name="address"></textarea></div>
                     </div>
-                    <div><input type="button" id="button" class="button" value="Add"></div>
+                    <div><input type="button" id="cancelButton" class="button" value="Cancel"></div>
+                    <div><input type="button" id="addButton" class="button" value="Add"></div>
                 </form>
             </div>
+            <!-- <div class="contact-details">
+                <div class="heading">
+                    <h1 id="heading-name"></h1>
+                    <div class="container">
+                        <div class="modification-bar">
+                            <div class="modify" id="edit">
+                                <img class="edit-icon" src="../images/edit1.jpg">
+                                <a class="edit">EDIT</a>
+                            </div>
+                            <div class="modify" id="delete">
+                                <img class="delete-icon" src="..//images/delete2.png">
+                                <a class="delete">DELETE</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="details">
+                    <div class="sameline content"><p>Email:</p>&nbsp;<pre id="detailedEmail"></pre></div>
+                    <div class="sameline content"><p>Mobile:</p>&nbsp;<pre id="detailedMobile"></pre></div>
+                    <div class="sameline"><p>Landline:</p>&nbsp;<pre id="detailedLandline"></pre></div>
+                    <div class="sameline content"><p>Website:</p>&nbsp;<pre id="detailedWebsite"></pre></div>
+                    <div class="sameline content"><p>Address:</p>&nbsp;<pre id="detailedAddress"></pre></div>
+                </div>
+            </div> -->
         </div>
     </body>
 </html>

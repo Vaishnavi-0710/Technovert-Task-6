@@ -25,13 +25,13 @@ $(document).ready(function(){
         $(".add-form").show();
     }
     );
-    $("#button").click(function(){
+    $("#addButton").click(function(){
         let name=validateName();
         let email=validateEmail();
         let mobile=validateMobile();
-        let website=validateWebsite();
-        let address=validateAddress();
-        if(name && email && mobile && website && address){
+        let landline=validateLandline();
+        console.log(name,email,mobile);
+        if((name && mobile) || (name && email && mobile) || (name && email && mobile && landline) ){
             contacts.push({
                 name: $('#name').val(),
                 email: $('#email').val(),
@@ -39,7 +39,14 @@ $(document).ready(function(){
             });
             display();
             $(".add-form").hide();
+            $("#formDetails").trigger("reset");
+            alert("Contact added successfully");
         };
+    });
+    $("#cancelButton").click(function(e){
+        e.preventDefault();
+        $("#formDetails").trigger("reset");
+        $(".add-form").hide();
     });
 });
 function display(){
@@ -71,10 +78,10 @@ function validateName(){
   
 function validateEmail(){
     let email=$("#email").val();
-    const mail=/^[a-zA-Z0-9.]+@[a-zA-Z0-9-]+.[a-zA-Z0-9.]{2,}$/;
-    if(mail.test(email) || email==""){
+    const validMail=/^[a-zA-Z0-9.]+@[a-zA-Z0-9-]+.[a-zA-Z0-9.]{2,}$/;
+    if(validMail.test(email) || email==""){
         if(email==""){
-            $('#emailError').text("Email is required");
+            $('#emailError').text("");
             return false;
         }
         else{
@@ -86,47 +93,44 @@ function validateEmail(){
         $("#emailError").text("Enter Valid Email");
         return false;
     }
-}
+};
 
-function validateWebsite(){
-    let website=$('#website').val();
-    const validWebsite =/^(http(s)?:\/\/)?((www.)?)+[a-zA-Z0-9#!:?+=&%!.\-\/]+\.[a-zA-Z\/]{2,}$/;
-    if(validWebsite.test(website) || website==""){
-        if(website==""){
-            $('#websiteError').text("Website is required");
+function validateMobile(){
+    let mobile=$("#mobile").val();
+    const validMobile =/^\d*(?:\.\d{1,2})?$/;
+    console.log(validMobile.test(mobile));
+    if((validMobile.test(mobile) && mobile.length==10) || mobile==""){
+        if(mobile==""){
+            $('#mobileError').text("Mobile is required");
             return false;
         }
         else{
-            $('#websiteError').text("");
+            $('#mobileError').text("");
             return true;
         }
     }
     else{
-        $("#websiteError").text("Enter Valid Website");
-        return false;
-    }
-}
-
-function validateMobile(){
-    let name=$("#mobile").val();
-    if(name!=""){
-        $('#mobileError').text("");
-        return true;
-    }
-    else{
-        $('#mobileError').text("Mobile is required");
+        $('#mobileError').text("Enter Valid Mobile");
         return false;
     }
 };
 
-function validateAddress(){
-    let address = $('#address').val();
-    if(address!=""){
-        $('#addressError').text("");
-        return true;
+function validateLandline(){
+    let landline=$("#landline").val();
+    const validLandline =/^[0-9]\d{2,4}-\d{6,8}$/;
+    console.log(validLandline.test(landline));
+    if(validLandline.test(landline) || landline==""){
+        if(landline==""){
+            $('#landlineError').text("");
+            return false;
+        }
+        else{
+            $('#landlineError').text("");
+            return true;
+        }
     }
     else{
-        $('#addressError').text("Address is required");
+        $('#landlineError').text("Enter Valid Landline");
         return false;
     }
-}
+};
