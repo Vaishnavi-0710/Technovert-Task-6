@@ -2,40 +2,76 @@ let contacts=[
     {
         name: "Chandermani Arora",
         email: "chandermani@technovert.com",
-        mobile: "+91 9292929292"
+        mobile: "+91 9292929292",
+        landline: "040 30 1231211",
+        website: "http://www.technovert.com",
+        address: `123 now here 
+                  Some Street
+                  Madhapur,Hyderabad 500033`
     },
     {
         name: "Sashi Pagadala",
         email: "sashi@technovert.com",
-        mobile: "+91 9393939393"
+        mobile: "+91 9393939393",
+        landline: "040 30 1231211",
+        website: "http://www.technovert.com",
+        address: `123 now here 
+                  Some Street
+                  Madhapur,Hyderabad 500033`
     },
     {
         name: "Praveen Battula",
         email: "praveen@technovert.com",
-        mobile: "+91 9494949494"
+        mobile: "+91 9494949494",
+        landline: "040 30 1231211",
+        website: "http://www.technovert.com",
+        address: `123 now here 
+                  Some Street
+                  Madhapur,Hyderabad 500033`
     },
     {
         name: "Vijay Yalamanchili",
         email: "praveen@technovert.com",
-        mobile: "+91 9595959595"
+        mobile: "+91 9595959595",
+        landline: "040 30 1231211",
+        website: "http://www.technovert.com",
+        address: `123 now here
+                  Some Street 
+                  Madhapur,Hyderabad 500033`
     }
 ]
 $(document).ready(function(){
-    $("#add").click(function(){
+    $("#add").click(function(e){
+        e.preventDefault();
+        $(".detailed-contact").hide();
+        $(".edit-form").hide();
         $(".add-form").show();
     }
     );
-    $("#addButton").click(function(){
+
+    $("#edit").click(function(e){
+        e.preventDefault();
+        $(".detailed-contact").hide();
+        $(".add-form").hide();
+        $(".edit-form").show();
+    }
+    );
+
+    $("#addButton").click(function(e){
+        e.preventDefault();
         let name=validateName();
         let email=validateEmail();
         let mobile=validateMobile();
         let landline=validateLandline();
         console.log(name,email,mobile);
-        if((name && mobile) || (name && email && mobile) || (name && email && mobile && landline) ){
+        if((name && email && mobile && landline) ){
             contacts.push({
                 name: $('#name').val(),
                 email: $('#email').val(),
-                mobile: "+91 " + $('#mobile').val()
+                mobile: "+91 " + $('#mobile').val(),
+                landline: $('#landline').val(),
+                website: $('#website').val(),
+                address: $('#address').val()
             });
             display();
             $(".add-form").hide();
@@ -43,26 +79,67 @@ $(document).ready(function(){
             alert("Contact added successfully");
         };
     });
+
     $("#cancelButton").click(function(e){
         e.preventDefault();
         $("#formDetails").trigger("reset");
         $(".add-form").hide();
     });
+
+    $('#edit').click(function(e){
+        e.preventDefault();
+        console.log($('.detailedName').text());
+        $('#edit-form').show();
+        $('#newName').val($('.detailed-name').text());
+        $('#newEmail').val($('.email').text());
+        $('#newMobile').val($('.mobile').text());
+        $('#newLandline').val($('.landline').text());
+        $('#newWebsite').val($('.website').text());
+        $('#newAddress').val($('.contact-address').text());
+    });
+    
+    $('#newEditButton').click(function(e){
+        e.preventDefault();
+        alert(contacts[counter].name+"data will be updated");
+        $(`#user${counter} .item-name`).text($('#newName').val());
+        $(`#user${counter} .item-email`).text($('#newEmail').val());
+        $(`#user${counter} .item-mobile`).text($('#newMobile').val());
+        $(`#user${counter} .item-landline`).text($('#newLandline').val());
+        $(`#user${counter} .item-website`).text($('#newWebsite').val());
+        $(`#user${counter} .item-address`).text($('#newAddress').val());
+        $('#edit-form').hide();
+    });
 });
 function display(){
     let list=document.querySelector("#list");
     let contactList="";
+    let i=0;
     contacts.forEach((contact)=>{
-        contactList += `<div class=list-item>
+        console.log(contact);
+        contactList += `<div class=list-item onclick="displayDetailed(${i})" id="user${i}">
         <div class="item-name">${contact.name}</div>
-        <div class="item-email">${contact.email}</div>
-        <div class="item-phnno">${contact.mobile}</div>
+        <div class="item-email">${"Email: " + contact.email}</div>
+        <div class="item-phnno">${"Mobile: " + contact.mobile}</div>
         </div>`
+        i++;
     });
     contactList="<div class=`list-container`>"+ contactList + "</div>";
     list.innerHTML= contactList;
 }
 display();
+
+const displayDetailed=(i)=>{
+    console.log(i);
+    $(".add-form").hide();
+    $(".edit-form").hide();
+    $('.detailed-contact').css("display","block");
+    $('.detailed-name').text(contacts[i].name);
+    $('.email').text(contacts[i].email);
+    $('.mobile').text(contacts[i].mobile);
+    $('.landline').text("Landline: " + contacts[i].landline);
+    $('.website').text("Website: " + contacts[i].website);
+    $('.contact-address').text("Address: " + contacts[i].address);
+}
 
 function validateName(){
     let name=$("#name").val();
