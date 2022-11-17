@@ -66,16 +66,17 @@
                     </div>
                     <div><input type="button" id="cancelButton" class="button" value="Cancel"></div>
                     <div><input type="button" id="addButton" class="button" value="Add"></div>
+                    <div><input type="button" id="editButton" class="button" value="Edit"></div>
                 </form>
             </div>
             <div class="detailed-contact">
                 <div class="items">
                     <h1 class="detailed-name"></h1>
-                    <div class="detailed email"></div>
-                    <div class="detailed mobile"></div>
-                    <div class="detailed landline"></div>
-                    <div class="detailed website"></div>
-                    <div class="detailed contact-address"></div>
+                    <div class="detailed">Email: <div class="email"></div></div>
+                    <div class="detailed">Mobile: <div class="mobile"></div></div>
+                    <div class="detailed">Landline: <div class="landline"></div></div>
+                    <div class="detailed">Website: <div class="website"></div></div>
+                    <div class="detailed">Address:  <div class="contact-address"></div></div>
                 </div>
                 <div class="items">
                     <div class="modify">
@@ -87,50 +88,6 @@
                         <div class="modify-items"><a class="delete" id="delete">DELETE</a></div>
                     </div>
                 </div>
-            </div>
-            <div class="edit-form" id="edit-form">
-                <form id="formDetails">
-                    <div class="item">
-                        <div class="cell"><label for="name" aria-describedby="required-description">Name</label>
-                            <span aria-hidden="true" class="required">*</span>
-                        </div>
-                        <div class="cell"><input type="text" id="newName" name="newName">
-                            <span id="nameError"></span>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="cell"><label for="newEmail">Email</label></div>
-                        <div class="cell"><input type="email" id="newEmail" name="newEmail">
-                            <span id="emailError"></span>
-                        </div>
-                    </div>
-                    <div class="item section mob-number">
-                        <div class="sub-item phone-number">
-                            <div class="cell"><label for="newMobile" aria-describedby="required-description">Mobile</label>
-                                <span aria-hidden="true" class="required">*</span>
-                            </div>
-                            <div class="cell"><input type="text" id="newMobile" name="newMobile">
-                                <span id="mobileError"></span>
-                            </div>
-                        </div>
-                        <div class="sub-item phone-number">
-                            <div class="cell"><label for="newLandline">Landline</label></div>
-                            <div class="cell"><input type="text" id="newLandline" name="newLandline">
-                                <span id="landlineError"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="cell"><label for="newWebsite">Website</label></div>
-                        <div class="cell"><input type="text" id="newWebsite" name="newWebsite"></div>
-                    </div>
-                    <div class="item">
-                        <div class="cell"><label for="newAddress">Address</label></div>
-                        <div class="cell"><textarea id="newAddress" class="address" name="newAddress"></textarea></div>
-                    </div>
-                    <div><input type="button" id="cancelButton" class="button" value="Cancel"></div>
-                    <div><input type="button" id="newEditButton" class="button" value="Edit"></div>
-                </form>
             </div>
         </div>
     </body>

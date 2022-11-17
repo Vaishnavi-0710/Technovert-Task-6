@@ -1,3 +1,4 @@
+let mode;
 let contacts=[
     {
         name: "Chandermani Arora",
@@ -5,9 +6,7 @@ let contacts=[
         mobile: "+91 9292929292",
         landline: "040 30 1231211",
         website: "http://www.technovert.com",
-        address: `123 now here 
-                  Some Street
-                  Madhapur,Hyderabad 500033`
+        address: "123 now here\nSome Street\nMadhapur,Hyderabad 500033"
     },
     {
         name: "Sashi Pagadala",
@@ -15,9 +14,7 @@ let contacts=[
         mobile: "+91 9393939393",
         landline: "040 30 1231211",
         website: "http://www.technovert.com",
-        address: `123 now here 
-                  Some Street
-                  Madhapur,Hyderabad 500033`
+        address: "123 now here\nSome Street\nMadhapur,Hyderabad 500033"
     },
     {
         name: "Praveen Battula",
@@ -25,9 +22,7 @@ let contacts=[
         mobile: "+91 9494949494",
         landline: "040 30 1231211",
         website: "http://www.technovert.com",
-        address: `123 now here 
-                  Some Street
-                  Madhapur,Hyderabad 500033`
+        address: "123 now here\nSome Street\nMadhapur,Hyderabad 500033"
     },
     {
         name: "Vijay Yalamanchili",
@@ -35,25 +30,21 @@ let contacts=[
         mobile: "+91 9595959595",
         landline: "040 30 1231211",
         website: "http://www.technovert.com",
-        address: `123 now here
-                  Some Street 
-                  Madhapur,Hyderabad 500033`
+        address: "123 now here\nSome Street\nMadhapur,Hyderabad 500033"
     }
 ]
 $(document).ready(function(){
     $("#add").click(function(e){
         e.preventDefault();
-        $(".detailed-contact").hide();
-        $(".edit-form").hide();
-        $(".add-form").show();
+        mode= "new";
+        render();
     }
     );
 
     $("#edit").click(function(e){
         e.preventDefault();
-        $(".detailed-contact").hide();
-        $(".add-form").hide();
-        $(".edit-form").show();
+        mode= "edit";
+        render();
     }
     );
 
@@ -86,30 +77,44 @@ $(document).ready(function(){
         $(".add-form").hide();
     });
 
-    $('#edit').click(function(e){
-        e.preventDefault();
-        console.log($('.detailedName').text());
-        $('#edit-form').show();
-        $('#newName').val($('.detailed-name').text());
-        $('#newEmail').val($('.email').text());
-        $('#newMobile').val($('.mobile').text());
-        $('#newLandline').val($('.landline').text());
-        $('#newWebsite').val($('.website').text());
-        $('#newAddress').val($('.contact-address').text());
-    });
     
-    $('#newEditButton').click(function(e){
-        e.preventDefault();
-        alert(contacts[counter].name+"data will be updated");
-        $(`#user${counter} .item-name`).text($('#newName').val());
-        $(`#user${counter} .item-email`).text($('#newEmail').val());
-        $(`#user${counter} .item-mobile`).text($('#newMobile').val());
-        $(`#user${counter} .item-landline`).text($('#newLandline').val());
-        $(`#user${counter} .item-website`).text($('#newWebsite').val());
-        $(`#user${counter} .item-address`).text($('#newAddress').val());
-        $('#edit-form').hide();
-    });
 });
+
+function render(){
+    if(mode==="new"){
+        $(".detailed-contact").hide();
+        $("#editButton").css("display", "none")
+        $(".add-form").show();
+    }
+    else if(mode==="edit"){
+        $(".detailed-contact").hide();
+        $("#editButton").css("display", "block")
+        $("#addButton").css("display", "none")
+        $(".add-form").show();
+        $('#name').val($('.detailed-name').text());
+        $('#email').val($('.email').text());
+        $('#mobile').val($('.mobile').text());
+        $('#landline').val($('.landline').text());
+        $('#website').val($('.website').text());
+        $('#address').val($('.contact-address').text());
+        $('#editButton').click(function(e){
+            e.preventDefault();
+            alert(contacts[counter].name+"data will be updated");
+            $(`#user${counter} .item-name`).text($('#name').val());
+            $(`#user${counter} .item-email`).text($('#email').val());
+            $(`#user${counter} .item-mobile`).text($('#mobile').val());
+            $(`#user${counter} .item-landline`).text($('#landline').val());
+            $(`#user${counter} .item-website`).text($('#website').val());
+            $(`#user${counter} .item-address`).text($('#address').val());
+            $('#add-form').hide();
+        });
+    }
+    else{
+        display();
+    }
+}
+
+
 function display(){
     let list=document.querySelector("#list");
     let contactList="";
@@ -128,17 +133,19 @@ function display(){
 }
 display();
 
+let counter;
 const displayDetailed=(i)=>{
     console.log(i);
+    counter=i;
     $(".add-form").hide();
     $(".edit-form").hide();
     $('.detailed-contact').css("display","block");
     $('.detailed-name').text(contacts[i].name);
     $('.email').text(contacts[i].email);
     $('.mobile').text(contacts[i].mobile);
-    $('.landline').text("Landline: " + contacts[i].landline);
-    $('.website').text("Website: " + contacts[i].website);
-    $('.contact-address').text("Address: " + contacts[i].address);
+    $('.landline').text(contacts[i].landline);
+    $('.website').text(contacts[i].website);
+    $('.contact-address').text(contacts[i].address);
 }
 
 function validateName(){
@@ -157,14 +164,8 @@ function validateEmail(){
     let email=$("#email").val();
     const validMail=/^[a-zA-Z0-9.]+@[a-zA-Z0-9-]+.[a-zA-Z0-9.]{2,}$/;
     if(validMail.test(email) || email==""){
-        if(email==""){
-            $('#emailError').text("");
-            return false;
-        }
-        else{
-            $('#emailError').text("");
-            return true;
-        }
+        $('#emailError').text("");
+        return true;
     }
     else{
         $("#emailError").text("Enter Valid Email");
@@ -197,14 +198,8 @@ function validateLandline(){
     const validLandline =/^[0-9]\d{2,4}-\d{6,8}$/;
     console.log(validLandline.test(landline));
     if(validLandline.test(landline) || landline==""){
-        if(landline==""){
-            $('#landlineError').text("");
-            return false;
-        }
-        else{
-            $('#landlineError').text("");
-            return true;
-        }
+        $('#landlineError').text("");
+        return true;
     }
     else{
         $('#landlineError').text("Enter Valid Landline");
