@@ -74,6 +74,10 @@ body{
     width:350px;
     align-items:center ;
 }
+.list-item:hover,.hover-color{
+    background-color: #cee7f2;
+    cursor: pointer;
+}
 .item-name{
     font-family: "Gadugi";
     color: #363636;
@@ -131,7 +135,7 @@ input{
     height:70px;
     border: 2px solid #919191;
 }
-.add-form,.edit-form{
+.add-form{
     width: 600px;
     height: 550px;
     margin: 20px 200px;
@@ -178,7 +182,7 @@ span,.required{
     flex-direction: column;
     justify-content: space-between;
     padding: 0px 0px 0px 120px;
-    font-family: "Ebrima";
+    font-family: 'Leelawadee UI';
     font-size: 13px;
 }
 .modify-items{
@@ -202,10 +206,6 @@ span,.required{
 .edit, .delete{
     margin-left: 5px;
 }
-.email,.mobile,.website,.contact-address{
-    padding-top: 10px;
-}
-.landline{
-    padding-top: 0;
-    margin:0
+.email,.mobile,.website,.contact-address,.landline{
+    padding: 0px 0px 0px 10px;
 }

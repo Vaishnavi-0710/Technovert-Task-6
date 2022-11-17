@@ -33,17 +33,30 @@ let contacts=[
         address: "123 now here\nSome Street\nMadhapur,Hyderabad 500033"
     }
 ]
+
+display();
+
+function display(){
+    let list=document.querySelector("#list");
+    let contactList="";
+    let i=0;
+    contacts.forEach((contact)=>{
+        contactList += `<div class=list-item onclick="displayDetailed(${i})" id="user${i}">
+        <div class="item-name">${contact.name}</div>
+        <div class="item-email">${"Email: " + contact.email}</div>
+        <div class="item-phnno">${"Mobile: " + contact.mobile}</div>
+        </div>`
+        i++;
+    });
+    contactList="<div class=`list-container`>"+ contactList + "</div>";
+    list.innerHTML= contactList;
+}
+
 $(document).ready(function(){
+    displayDetailed(0);
     $("#add").click(function(e){
         e.preventDefault();
         mode= "new";
-        render();
-    }
-    );
-
-    $("#edit").click(function(e){
-        e.preventDefault();
-        mode= "edit";
         render();
     }
     );
@@ -75,15 +88,32 @@ $(document).ready(function(){
         e.preventDefault();
         $("#formDetails").trigger("reset");
         $(".add-form").hide();
+        displayDetailed(0);
     });
 
+    $("#edit").click(function(e){
+        e.preventDefault();
+        mode= "edit";
+        render();
+    }
+    );
+
+    $('#delete').click(function(e){
+        e.preventDefault();
+        contacts.splice(counter,1);
+        $('.detailed-contact').css("display","none");
+        render();
+        displayDetailed(0);
+    });
     
 });
 
 function render(){
     if(mode==="new"){
+        $("#formDetails").trigger("reset");
         $(".detailed-contact").hide();
         $("#editButton").css("display", "none")
+        $("#addButton").css("display", "block")
         $(".add-form").show();
     }
     else if(mode==="edit"){
@@ -114,29 +144,17 @@ function render(){
     }
 }
 
-
-function display(){
-    let list=document.querySelector("#list");
-    let contactList="";
-    let i=0;
-    contacts.forEach((contact)=>{
-        console.log(contact);
-        contactList += `<div class=list-item onclick="displayDetailed(${i})" id="user${i}">
-        <div class="item-name">${contact.name}</div>
-        <div class="item-email">${"Email: " + contact.email}</div>
-        <div class="item-phnno">${"Mobile: " + contact.mobile}</div>
-        </div>`
-        i++;
-    });
-    contactList="<div class=`list-container`>"+ contactList + "</div>";
-    list.innerHTML= contactList;
-}
-display();
-
 let counter;
 const displayDetailed=(i)=>{
-    console.log(i);
     counter=i;
+    $(`#user${i}`).addClass("hover-color");
+    for(let j=0;j<contacts.length;j++)
+    {
+        if(i!==j)
+        {
+            $(`#user${j}`).removeClass("hover-color");
+        }
+    }
     $(".add-form").hide();
     $(".edit-form").hide();
     $('.detailed-contact').css("display","block");
