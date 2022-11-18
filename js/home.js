@@ -49,7 +49,6 @@ $(document).ready(function(){
         let email=validateEmail();
         let mobile=validateMobile();
         let landline=validateLandline();
-        console.log(name,email,mobile);
         if((name && email && mobile && landline) ){
             contacts.push({
                 name: $('#name').val(),
@@ -60,17 +59,18 @@ $(document).ready(function(){
                 address: $('#address').val()
             });
             display();
-            $(".add-form").hide();
+            $(".form-wrapper").hide();
             $("#formDetails").trigger("reset");
             alert("Contact added successfully");
+            displayDetailed(0); 
         };
-        displayDetailed(0);
     });
 
     $("#cancelButton").click(function(e){
         e.preventDefault();
         $("#formDetails").trigger("reset");
-        $(".add-form").hide();
+        $(".error-msg").hide();
+        $(".form-wrapper").hide();
         displayDetailed(0);
     });
 
@@ -85,6 +85,7 @@ $(document).ready(function(){
         contacts.splice(counter,1);
         $('.detailed-contact').css("display","none");
         render();
+        display();
         displayDetailed(0);
     });
     
@@ -97,7 +98,7 @@ function display(){
     contacts.forEach((contact)=>{
         contactList += `<div class=list-item onclick="displayDetailed(${i})" id="user${i}">
         <div class="item-name">${contact.name}</div>
-        <div class="item-email">${"Email: " + contact.email}</div>
+        ${contact.email!=null && contact.email!="" ? "<div class='item-email'>"+ "Email: " + contact.email+"</div>" : ""}
         <div class="item-phnno">${"Mobile: " + contact.mobile}</div>
         </div>`
         i++;
@@ -111,22 +112,22 @@ function render(){
     if(mode==="new"){
         $("#formDetails").trigger("reset");
         $(".detailed-contact").hide();
-        $("#editButton").css("display", "none")
-        $("#addButton").css("display", "block")
-        $(".add-form").show();
+        $("#editButton").css("display", "none");
+        $("#addButton").css("display", "block");
+        $(".form-wrapper").show();
         display();
     }
     else if(mode==="edit"){
         $(".detailed-contact").hide();
-        $("#editButton").css("display", "block")
-        $("#addButton").css("display", "none")
-        $(".add-form").show();
-        $('#name').val($('.detailed-name').text());
-        $('#email').val($('.email').text());
-        $('#mobile').val($('.mobile').text());
-        $('#landline').val($('.landline').text());
-        $('#website').val($('.website').text());
-        $('#address').val($('.contact-address').text());
+        $("#editButton").css("display", "block");
+        $("#addButton").css("display", "none");
+        $(".form-wrapper").show();
+        $('#name').val(contacts[counter].name);
+        $('#email').val(contacts[counter].email);
+        $('#mobile').val(contacts[counter].mobile);
+        $('#landline').val(contacts[counter].landline);
+        $('#website').val(contacts[counter].website);
+        $('#address').val(contacts[counter].address);
         $('#editButton').click(function(e){
             e.preventDefault();
             alert(contacts[counter].name+" data will be updated");
@@ -138,7 +139,7 @@ function render(){
                 website: $('#website').val(),
                 address: $('#address').val()
             }
-            $(".add-form").css("display","none");
+            $(".form-wrapper").hide();
             display();
             displayDetailed(counter);
         });
@@ -159,14 +160,14 @@ const displayDetailed=(i)=>{
             $(`#user${j}`).removeClass("selected-item");
         }
     }
-    $(".add-form").hide();
+    $(".form-wrapper").hide();
     $('.detailed-contact').css("display","block");
     $('.detailed-name').text(contacts[i].name);
-    $('.email').text(contacts[i].email);
+    $('.email').text(contacts[i].email!=null && contacts[i].email!="" ? contacts[i].email : "N/A");
     $('.mobile').text(contacts[i].mobile);
-    $('.landline').text(contacts[i].landline);
-    $('.website').text(contacts[i].website);
-    $('.contact-address').text(contacts[i].address);
+    $('.landline').text(contacts[i].landline!=null && contacts[i].landline!="" ? contacts[i].landline : "N/A");
+    $('.website').text(contacts[i].website!=null && contacts[i].website!="" ? contacts[i].website : "N/A");
+    $('.contact-address').text(contacts[i].address!=null && contacts[i].address!="" ? contacts[i].address : "N/A");
 }
 
 function validateName(){

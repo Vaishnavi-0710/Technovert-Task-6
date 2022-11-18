@@ -24,20 +24,21 @@
                 <div class="contacts-heading"><b>CONTACTS</b></div>
                 <div id="list"></div>
             </div>
-            <div class="add-form">
+            <div class="form-wrapper">
+            <div class="popup-form" id="">
                 <form id="formDetails">
                     <div class="item">
                         <div class="cell"><label for="name" aria-describedby="required-description">Name</label>
                             <span aria-hidden="true" class="required">*</span>
                         </div>
                         <div class="cell"><input type="text" id="name" name="name" placeholder="Enter your name">
-                            <span id="nameError"></span>
+                            <span id="nameError" class="error-msg"></span>
                         </div>
                     </div>
                     <div class="item">
                         <div class="cell"><label for="email">Email</label></div>
                         <div class="cell"><input type="email" id="email" name="email" placeholder="Enter your email">
-                            <span id="emailError"></span>
+                            <span id="emailError" class="error-msg"></span>
                         </div>
                     </div>
                     <div class="item section mob-number">
@@ -46,13 +47,13 @@
                                 <span aria-hidden="true" class="required">*</span>
                             </div>
                             <div class="cell"><input type="text" id="mobile" name="mobile" placeholder="Enter your mobile">
-                                <span id="mobileError"></span>
+                                <span id="mobileError" class="error-msg"></span>
                             </div>
                         </div>
                         <div class="sub-item phone-number">
                             <div class="cell"><label for="landline">Landline</label></div>
                             <div class="cell"><input type="text" id="landline" name="landline" placeholder="Enter your landline">
-                                <span id="landlineError"></span>
+                                <span id="landlineError" class="error-msg"></span>
                             </div>
                         </div>
                     </div>
@@ -68,6 +69,7 @@
                     <div><input type="button" id="addButton" class="button" value="Save"></div>
                     <div><input type="button" id="editButton" class="button" value="Save"></div>
                 </form>
+            </div>
             </div>
             <div class="detailed-contact">
                 <div class="container">
@@ -87,8 +89,7 @@
                     <div class="detailed"><b>Landline: </b><div class="landline"></div></div>
                     <div class="detailed"><b>Website: </b><div class="website"></div></div>
                     <div class="detailed"><b>Address:  </b><div class="contact-address"></div></div>
-                </div>
-                
+                </div>   
             </div>
         </div>
     </body>
