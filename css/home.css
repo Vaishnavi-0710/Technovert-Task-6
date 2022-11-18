@@ -67,6 +67,8 @@ body{
 }
 #list{
     padding: 10px 0px 0px 0px;
+    height:400px;
+    overflow: scroll;
 }
 .list-item{
     display: block;
@@ -74,7 +76,7 @@ body{
     width:350px;
     align-items:center ;
 }
-.list-item:hover,.hover-color{
+.list-item:hover,.selected-item{
     background-color: #cee7f2;
     cursor: pointer;
 }
@@ -142,7 +144,16 @@ input{
     box-shadow: 0px 0px 25px;
     display: none;
 }
-#addButton,#editButton{
+#addButton{
+    height: 40px;
+    width:100px;
+    background-color: #468c00;
+    border-width: 0px;
+    color: white;
+    font-size: 18px;
+    margin: 0px 0px 0px 210px;
+}
+#editButton{
     height: 40px;
     width:100px;
     background-color: #468c00;
@@ -185,8 +196,23 @@ span,.required{
     font-family: 'Leelawadee UI';
     font-size: 13px;
 }
-.modify-items{
-    flex-direction: column;
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0px 0px 0px 120px;
+    font-family: 'Leelawadee UI';
+    font-size: 13px;
+}
+.name{
+    width:400px;
+}
+.modify{
+    display: flex;
+    flex-direction: row;
+    padding: 30px 30px 0px 0px;
+    font-family: 'Leelawadee UI';
+    font-size: 15px;
 }
 .detailed{
     display: flex;

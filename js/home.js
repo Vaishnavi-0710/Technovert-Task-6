@@ -34,32 +34,14 @@ let contacts=[
     }
 ]
 
-display();
-
-function display(){
-    let list=document.querySelector("#list");
-    let contactList="";
-    let i=0;
-    contacts.forEach((contact)=>{
-        contactList += `<div class=list-item onclick="displayDetailed(${i})" id="user${i}">
-        <div class="item-name">${contact.name}</div>
-        <div class="item-email">${"Email: " + contact.email}</div>
-        <div class="item-phnno">${"Mobile: " + contact.mobile}</div>
-        </div>`
-        i++;
-    });
-    contactList="<div class=`list-container`>"+ contactList + "</div>";
-    list.innerHTML= contactList;
-}
-
 $(document).ready(function(){
+    display();
     displayDetailed(0);
     $("#add").click(function(e){
         e.preventDefault();
         mode= "new";
         render();
-    }
-    );
+    });
 
     $("#addButton").click(function(e){
         e.preventDefault();
@@ -82,6 +64,7 @@ $(document).ready(function(){
             $("#formDetails").trigger("reset");
             alert("Contact added successfully");
         };
+        displayDetailed(0);
     });
 
     $("#cancelButton").click(function(e){
@@ -95,8 +78,7 @@ $(document).ready(function(){
         e.preventDefault();
         mode= "edit";
         render();
-    }
-    );
+    });
 
     $('#delete').click(function(e){
         e.preventDefault();
@@ -108,6 +90,23 @@ $(document).ready(function(){
     
 });
 
+function display(){
+    let list=document.querySelector("#list");
+    let contactList="";
+    let i=0;
+    contacts.forEach((contact)=>{
+        contactList += `<div class=list-item onclick="displayDetailed(${i})" id="user${i}">
+        <div class="item-name">${contact.name}</div>
+        <div class="item-email">${"Email: " + contact.email}</div>
+        <div class="item-phnno">${"Mobile: " + contact.mobile}</div>
+        </div>`
+        i++;
+    });
+    contactList="<div class=`list-container`>"+ contactList + "</div>";
+    list.innerHTML= contactList;
+}
+
+
 function render(){
     if(mode==="new"){
         $("#formDetails").trigger("reset");
@@ -115,6 +114,7 @@ function render(){
         $("#editButton").css("display", "none")
         $("#addButton").css("display", "block")
         $(".add-form").show();
+        display();
     }
     else if(mode==="edit"){
         $(".detailed-contact").hide();
@@ -129,14 +129,18 @@ function render(){
         $('#address').val($('.contact-address').text());
         $('#editButton').click(function(e){
             e.preventDefault();
-            alert(contacts[counter].name+"data will be updated");
-            $(`#user${counter} .item-name`).text($('#name').val());
-            $(`#user${counter} .item-email`).text($('#email').val());
-            $(`#user${counter} .item-mobile`).text($('#mobile').val());
-            $(`#user${counter} .item-landline`).text($('#landline').val());
-            $(`#user${counter} .item-website`).text($('#website').val());
-            $(`#user${counter} .item-address`).text($('#address').val());
-            $('#add-form').hide();
+            alert(contacts[counter].name+" data will be updated");
+            contacts[counter]={
+                name: $('#name').val(),
+                email: $('#email').val(),
+                mobile: $("#mobile").val(),
+                landline: $('#landline').val(),
+                website: $('#website').val(),
+                address: $('#address').val()
+            }
+            $(".add-form").css("display","none");
+            display();
+            displayDetailed(counter);
         });
     }
     else{
@@ -147,16 +151,15 @@ function render(){
 let counter;
 const displayDetailed=(i)=>{
     counter=i;
-    $(`#user${i}`).addClass("hover-color");
+    $(`#user${i}`).addClass("selected-item");
     for(let j=0;j<contacts.length;j++)
     {
         if(i!==j)
         {
-            $(`#user${j}`).removeClass("hover-color");
+            $(`#user${j}`).removeClass("selected-item");
         }
     }
     $(".add-form").hide();
-    $(".edit-form").hide();
     $('.detailed-contact').css("display","block");
     $('.detailed-name').text(contacts[i].name);
     $('.email').text(contacts[i].email);

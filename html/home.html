@@ -30,13 +30,13 @@
                         <div class="cell"><label for="name" aria-describedby="required-description">Name</label>
                             <span aria-hidden="true" class="required">*</span>
                         </div>
-                        <div class="cell"><input type="text" id="name" name="name">
+                        <div class="cell"><input type="text" id="name" name="name" placeholder="Enter your name">
                             <span id="nameError"></span>
                         </div>
                     </div>
                     <div class="item">
                         <div class="cell"><label for="email">Email</label></div>
-                        <div class="cell"><input type="email" id="email" name="email">
+                        <div class="cell"><input type="email" id="email" name="email" placeholder="Enter your email">
                             <span id="emailError"></span>
                         </div>
                     </div>
@@ -45,40 +45,33 @@
                             <div class="cell"><label for="mobile" aria-describedby="required-description">Mobile</label>
                                 <span aria-hidden="true" class="required">*</span>
                             </div>
-                            <div class="cell"><input type="text" id="mobile" name="mobile">
+                            <div class="cell"><input type="text" id="mobile" name="mobile" placeholder="Enter your mobile">
                                 <span id="mobileError"></span>
                             </div>
                         </div>
                         <div class="sub-item phone-number">
                             <div class="cell"><label for="landline">Landline</label></div>
-                            <div class="cell"><input type="text" id="landline" name="landline">
+                            <div class="cell"><input type="text" id="landline" name="landline" placeholder="Enter your landline">
                                 <span id="landlineError"></span>
                             </div>
                         </div>
                     </div>
                     <div class="item">
                         <div class="cell"><label for="website">Website</label></div>
-                        <div class="cell"><input type="text" id="website" name="website"></div>
+                        <div class="cell"><input type="text" id="website" name="website" placeholder="Enter the website"></div>
                     </div>
                     <div class="item">
                         <div class="cell"><label for="address">Address</label></div>
-                        <div class="cell"><textarea id="address" class="address" name="address"></textarea></div>
+                        <div class="cell"><textarea id="address" class="address" name="address" placeholder="Enter your address"></textarea></div>
                     </div>
                     <div><input type="button" id="cancelButton" class="button" value="Cancel"></div>
-                    <div><input type="button" id="addButton" class="button" value="Add"></div>
-                    <div><input type="button" id="editButton" class="button" value="Edit"></div>
+                    <div><input type="button" id="addButton" class="button" value="Save"></div>
+                    <div><input type="button" id="editButton" class="button" value="Save"></div>
                 </form>
             </div>
             <div class="detailed-contact">
-                <div class="items">
-                    <h1 class="detailed-name"></h1>
-                    <div class="detailed"><b>Email: </b><div class=" email"></div></div>
-                    <div class="detailed"><b>Mobile: </b><div class="mobile"></div></div>
-                    <div class="detailed"><b>Landline: </b><div class="landline"></div></div>
-                    <div class="detailed"><b>Website: </b><div class="website"></div></div>
-                    <div class="detailed"><b>Address:  </b><div class="contact-address"></div></div>
-                </div>
-                <div class="items">
+                <div class="container">
+                    <div class="name"><h1 class="detailed-name"></h1></div>
                     <div class="modify">
                         <div class="modify-items"><img class="edit-icon" src="../images/edit1.jpg"></div>
                         <div class="modify-items"><a class="edit" id="edit">EDIT</a></div>
@@ -88,6 +81,14 @@
                         <div class="modify-items"><a class="delete" id="delete">DELETE</a></div>
                     </div>
                 </div>
+                <div class="items">
+                    <div class="detailed"><b>Email: </b><div class="email"></div></div>
+                    <div class="detailed"><b>Mobile: </b><div class="mobile"></div></div>
+                    <div class="detailed"><b>Landline: </b><div class="landline"></div></div>
+                    <div class="detailed"><b>Website: </b><div class="website"></div></div>
+                    <div class="detailed"><b>Address:  </b><div class="contact-address"></div></div>
+                </div>
+                
             </div>
         </div>
     </body>
