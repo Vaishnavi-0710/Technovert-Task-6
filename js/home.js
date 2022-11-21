@@ -1,42 +1,20 @@
-let mode;
-let contacts=[
-    {
-        name: "Chandermani Arora",
-        email: "chandermani@technovert.com",
-        mobile: "+91 9292929292",
-        landline: "040 30 1231211",
-        website: "http://www.technovert.com",
-        address: "123 now here\nSome Street\nMadhapur,Hyderabad 500033"
-    },
-    {
-        name: "Sashi Pagadala",
-        email: "sashi@technovert.com",
-        mobile: "+91 9393939393",
-        landline: "040 30 1231211",
-        website: "http://www.technovert.com",
-        address: "123 now here\nSome Street\nMadhapur,Hyderabad 500033"
-    },
-    {
-        name: "Praveen Battula",
-        email: "praveen@technovert.com",
-        mobile: "+91 9494949494",
-        landline: "040 30 1231211",
-        website: "http://www.technovert.com",
-        address: "123 now here\nSome Street\nMadhapur,Hyderabad 500033"
-    },
-    {
-        name: "Vijay Yalamanchili",
-        email: "praveen@technovert.com",
-        mobile: "+91 9595959595",
-        landline: "040 30 1231211",
-        website: "http://www.technovert.com",
-        address: "123 now here\nSome Street\nMadhapur,Hyderabad 500033"
+let mode,contacts=[],counter=0,contactList;
+function storage(){
+    contacts=JSON.parse(localStorage.getItem("contacts"));
+    if(contacts=="" || contacts==null){
+        localStorage.setItem("contacts",JSON.stringify(contacts));
     }
-]
+}
 
+function contactNotNull(){
+    if(contacts!="" && contacts!=null){
+        displayDetails(counter);
+    }
+}
 $(document).ready(function(){
+    storage();
     display();
-    displayDetailed(0);
+    contactNotNull();
     $("#add").click(function(e){
         e.preventDefault();
         mode= "new";
@@ -45,25 +23,28 @@ $(document).ready(function(){
 
     $("#addButton").click(function(e){
         e.preventDefault();
-        let name=validateName();
-        let email=validateEmail();
-        let mobile=validateMobile();
-        let landline=validateLandline();
-        if((name && email && mobile && landline) ){
-            contacts.push({
-                name: $('#name').val(),
-                email: $('#email').val(),
-                mobile: "+91 " + $('#mobile').val(),
-                landline: $('#landline').val(),
-                website: $('#website').val(),
-                address: $('#address').val()
-            });
-            display();
-            $(".form-wrapper").hide();
-            $("#formDetails").trigger("reset");
-            alert("Contact added successfully");
-            displayDetailed(0); 
-        };
+        if(confirm("Are you sure you want to add the contact?")==true){
+            let name=validateName();
+            let email=validateEmail();
+            let mobile=validateMobile();
+            let landline=validateLandline();
+            if((name && email && mobile && landline) ){
+                contacts.push({
+                    name: $('#name').val(),
+                    email: $('#email').val(),
+                    mobile: "+91 " + $('#mobile').val(),
+                    landline: $('#landline').val(),
+                    website: $('#website').val(),
+                    address: $('#address').val()
+                });
+                localStorage.setItem('contacts', JSON. stringify(contacts));
+                display();
+                $(".form-wrapper").hide();
+                $("#formDetails").trigger("reset");
+                alert("Contact added successfully");
+                contactNotNull();
+            };
+        }
     });
 
     $("#cancelButton").click(function(e){
@@ -71,7 +52,7 @@ $(document).ready(function(){
         $("#formDetails").trigger("reset");
         $(".error-msg").hide();
         $(".form-wrapper").hide();
-        displayDetailed(0);
+        contactNotNull();
     });
 
     $("#edit").click(function(e){
@@ -82,11 +63,16 @@ $(document).ready(function(){
 
     $('#delete').click(function(e){
         e.preventDefault();
-        contacts.splice(counter,1);
-        $('.detailed-contact').css("display","none");
-        render();
-        display();
-        displayDetailed(0);
+        if(confirm("Are you sure you want to delete the contact?")==true){
+            contacts.splice(counter,1);
+            $('.detailed-contact').css("display","none");
+            localStorage.setItem('contacts', JSON.stringify(contacts));
+            storage();
+            display();
+            if(contacts!="" && contacts!=null){
+                displayDetails(counter-counter);
+            }
+        }
     });
     
 });
@@ -96,15 +82,21 @@ function display(){
     let contactList="";
     let i=0;
     contacts.forEach((contact)=>{
-        contactList += `<div class=list-item onclick="displayDetailed(${i})" id="user${i}">
+        contactList += `<div class=list-item onclick="displayDetails(${i})" id="user${i}">
         <div class="item-name">${contact.name}</div>
         ${contact.email!=null && contact.email!="" ? "<div class='item-email'>"+ "Email: " + contact.email+"</div>" : ""}
         <div class="item-phnno">${"Mobile: " + contact.mobile}</div>
         </div>`
         i++;
     });
-    contactList="<div class=`list-container`>"+ contactList + "</div>";
-    list.innerHTML= contactList;
+    console.log(contactList)
+    if(contactList!="" && contactList!=null){
+        contactList="<div class=`list-container`>"+ contactList + "</div>";
+        list.innerHTML= contactList;
+    }
+    else{
+        list.innerHTML= "There are no contacts to display";
+    }
 }
 
 
@@ -130,18 +122,22 @@ function render(){
         $('#address').val(contacts[counter].address);
         $('#editButton').click(function(e){
             e.preventDefault();
-            alert(contacts[counter].name+" data will be updated");
-            contacts[counter]={
-                name: $('#name').val(),
-                email: $('#email').val(),
-                mobile: $("#mobile").val(),
-                landline: $('#landline').val(),
-                website: $('#website').val(),
-                address: $('#address').val()
+            if(confirm("Are you sure you want to update the data?")==true){
+                alert(contacts[counter].name+" data will be updated");
+                contacts[counter]={
+                    name: $('#name').val(),
+                    email: $('#email').val(),
+                    mobile: $("#mobile").val(),
+                    landline: $('#landline').val(),
+                    website: $('#website').val(),
+                    address: $('#address').val()
+                }
+                $(".form-wrapper").hide();
+                localStorage.setItem('contacts', JSON.stringify(contacts));
+                // storage();
+                display();
+                contactNotNull();
             }
-            $(".form-wrapper").hide();
-            display();
-            displayDetailed(counter);
         });
     }
     else{
@@ -149,8 +145,7 @@ function render(){
     }
 }
 
-let counter;
-const displayDetailed=(i)=>{
+const displayDetails=(i)=>{
     counter=i;
     $(`#user${i}`).addClass("selected-item");
     for(let j=0;j<contacts.length;j++)
@@ -160,14 +155,19 @@ const displayDetailed=(i)=>{
             $(`#user${j}`).removeClass("selected-item");
         }
     }
-    $(".form-wrapper").hide();
-    $('.detailed-contact').css("display","block");
-    $('.detailed-name').text(contacts[i].name);
-    $('.email').text(contacts[i].email!=null && contacts[i].email!="" ? contacts[i].email : "N/A");
-    $('.mobile').text(contacts[i].mobile);
-    $('.landline').text(contacts[i].landline!=null && contacts[i].landline!="" ? contacts[i].landline : "N/A");
-    $('.website').text(contacts[i].website!=null && contacts[i].website!="" ? contacts[i].website : "N/A");
-    $('.contact-address').text(contacts[i].address!=null && contacts[i].address!="" ? contacts[i].address : "N/A");
+    if (contacts==null || contacts==[]){
+        $('.detailed-contact').hide();
+    }
+    else{
+        $(".form-wrapper").hide();
+        $('.detailed-contact').css("display","block");
+        $('.detailed-name').text(contacts[i].name!=null && contacts[i].name!="" ? contacts[i].name : "N/A");
+        $('.email').text(contacts[i].email!=null && contacts[i].email!="" ? contacts[i].email : "N/A");
+        $('.mobile').text(contacts[i].mobile);
+        $('.landline').text(contacts[i].landline!=null && contacts[i].landline!="" ? contacts[i].landline : "N/A");
+        $('.website').text(contacts[i].website!=null && contacts[i].website!="" ? contacts[i].website : "N/A");
+        $('.contact-address').text(contacts[i].address!=null && contacts[i].address!="" ? contacts[i].address : "N/A");
+    }
 }
 
 function validateName(){
