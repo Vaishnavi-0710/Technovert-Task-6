@@ -2,6 +2,7 @@ let mode,contacts=[],counter=0,contactList;
 function storage(){
     contacts=JSON.parse(localStorage.getItem("contacts"));
     if(contacts=="" || contacts==null){
+        contacts=[];
         localStorage.setItem("contacts",JSON.stringify(contacts));
     }
 }
@@ -33,7 +34,7 @@ $(document).ready(function(){
                 contacts.push({
                     name: $('#name').val(),
                     email: $('#email').val(),
-                    mobile: "+91 " + $('#mobile').val(),
+                    mobile: $('#mobile').val(),
                     landline: $('#landline').val(),
                     website: $('#website').val(),
                     address: $('#address').val()
@@ -46,6 +47,32 @@ $(document).ready(function(){
             alert("Contact added successfully");
             contactNotNull();
         };
+    });
+
+    $('#editButton').click(function(e){
+        e.preventDefault();
+        let name=validateName();
+        let email=validateEmail();
+        let mobile=validateMobile();
+        let landline=validateLandline();
+        $(".error-msg").show();
+        if((name && email && mobile && landline) ){
+            if(confirm("Are you sure you want to update the data?")==true){
+                contacts[counter]={
+                    name: $('#name').val(),
+                    email: $('#email').val(),
+                    mobile: $("#mobile").val(),
+                    landline: $('#landline').val(),
+                    website: $('#website').val(),
+                    address: $('#address').val()
+                }
+                $(".form-wrapper").hide();
+                localStorage.setItem('contacts', JSON.stringify(contacts));
+                display();
+                alert(contacts[counter].name+"'s data is updated");
+                contactNotNull();
+            }
+        }
     });
 
     $("#cancelButton").click(function(e){
@@ -120,31 +147,7 @@ function render(){
         $('#landline').val(contacts[counter].landline);
         $('#website').val(contacts[counter].website);
         $('#address').val(contacts[counter].address);
-        $('#editButton').click(function(e){
-            e.preventDefault();
-            let name=validateName();
-            let email=validateEmail();
-            let mobile=validateMobile();
-            let landline=validateLandline();
-            $(".error-msg").show();
-            if((name && email && mobile && landline) ){
-                if(confirm("Are you sure you want to update the data?")==true){
-                    contacts[counter]={
-                        name: $('#name').val(),
-                        email: $('#email').val(),
-                        mobile: $("#mobile").val(),
-                        landline: $('#landline').val(),
-                        website: $('#website').val(),
-                        address: $('#address').val()
-                    }
-                    $(".form-wrapper").hide();
-                    localStorage.setItem('contacts', JSON.stringify(contacts));
-                    display();
-                    alert(contacts[counter].name+"'s data is updated");
-                    contactNotNull();
-                }
-            }
-        });
+        
     }
     else{
         display();
@@ -203,8 +206,8 @@ function validateEmail(){
 
 function validateMobile(){
     let mobile=$("#mobile").val();
-    const validMobile =/^\d*(?:\.\d{1,2})?$/;
-    if((validMobile.test(mobile) && (mobile.length==10 || mobile.length==14)) || mobile==""){
+    const validMobile =/^((\+*)((0[ -]*)*|((91 )*))((\d{12})+|(\d{10})+))|\d{5}([- ]*)\d{6}$/;
+    if((validMobile.test(mobile)) || mobile==""){
         if(mobile==""){
             $('#mobileError').text("Mobile is required");
             return false;
