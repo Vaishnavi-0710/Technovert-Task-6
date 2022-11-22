@@ -23,12 +23,13 @@ $(document).ready(function(){
 
     $("#addButton").click(function(e){
         e.preventDefault();
-        if(confirm("Are you sure you want to add the contact?")==true){
-            let name=validateName();
-            let email=validateEmail();
-            let mobile=validateMobile();
-            let landline=validateLandline();
-            if((name && email && mobile && landline) ){
+        let name=validateName();
+        let email=validateEmail();
+        let mobile=validateMobile();
+        let landline=validateLandline();
+        $(".error-msg").show();
+        if((name && email && mobile && landline) ){
+            if(confirm("Are you sure you want to add the contact?")==true){
                 contacts.push({
                     name: $('#name').val(),
                     email: $('#email').val(),
@@ -37,14 +38,14 @@ $(document).ready(function(){
                     website: $('#website').val(),
                     address: $('#address').val()
                 });
-                localStorage.setItem('contacts', JSON. stringify(contacts));
-                display();
-                $(".form-wrapper").hide();
-                $("#formDetails").trigger("reset");
-                alert("Contact added successfully");
-                contactNotNull();
             };
-        }
+            localStorage.setItem('contacts', JSON. stringify(contacts));
+            display();
+            $(".form-wrapper").hide();
+            $("#formDetails").trigger("reset");
+            alert("Contact added successfully");
+            contactNotNull();
+        };
     });
 
     $("#cancelButton").click(function(e){
@@ -89,7 +90,6 @@ function display(){
         </div>`
         i++;
     });
-    console.log(contactList)
     if(contactList!="" && contactList!=null){
         contactList="<div class=`list-container`>"+ contactList + "</div>";
         list.innerHTML= contactList;
@@ -122,21 +122,27 @@ function render(){
         $('#address').val(contacts[counter].address);
         $('#editButton').click(function(e){
             e.preventDefault();
-            if(confirm("Are you sure you want to update the data?")==true){
-                alert(contacts[counter].name+" data will be updated");
-                contacts[counter]={
-                    name: $('#name').val(),
-                    email: $('#email').val(),
-                    mobile: $("#mobile").val(),
-                    landline: $('#landline').val(),
-                    website: $('#website').val(),
-                    address: $('#address').val()
+            let name=validateName();
+            let email=validateEmail();
+            let mobile=validateMobile();
+            let landline=validateLandline();
+            $(".error-msg").show();
+            if((name && email && mobile && landline) ){
+                if(confirm("Are you sure you want to update the data?")==true){
+                    contacts[counter]={
+                        name: $('#name').val(),
+                        email: $('#email').val(),
+                        mobile: $("#mobile").val(),
+                        landline: $('#landline').val(),
+                        website: $('#website').val(),
+                        address: $('#address').val()
+                    }
+                    $(".form-wrapper").hide();
+                    localStorage.setItem('contacts', JSON.stringify(contacts));
+                    display();
+                    alert(contacts[counter].name+"'s data is updated");
+                    contactNotNull();
                 }
-                $(".form-wrapper").hide();
-                localStorage.setItem('contacts', JSON.stringify(contacts));
-                // storage();
-                display();
-                contactNotNull();
             }
         });
     }
@@ -198,8 +204,7 @@ function validateEmail(){
 function validateMobile(){
     let mobile=$("#mobile").val();
     const validMobile =/^\d*(?:\.\d{1,2})?$/;
-    console.log(validMobile.test(mobile));
-    if((validMobile.test(mobile) && mobile.length==10) || mobile==""){
+    if((validMobile.test(mobile) && (mobile.length==10 || mobile.length==14)) || mobile==""){
         if(mobile==""){
             $('#mobileError').text("Mobile is required");
             return false;
@@ -218,7 +223,6 @@ function validateMobile(){
 function validateLandline(){
     let landline=$("#landline").val();
     const validLandline =/^[0-9]\d{2,4}-\d{6,8}$/;
-    console.log(validLandline.test(landline));
     if(validLandline.test(landline) || landline==""){
         $('#landlineError').text("");
         return true;
